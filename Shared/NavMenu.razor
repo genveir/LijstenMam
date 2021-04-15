@@ -1,0 +1,22 @@
+﻿@using LijstenMam.Data
+@inject FileService fileService
+
+<h3>@files.Count()</h3>
+
+<div>
+    <ul>
+        @foreach (var file in files)
+        {
+            <li>@file.Name</li>
+        }
+    </ul>
+</div>
+
+@code {
+    private List<File> files;
+
+    protected override async Task OnInitializedAsync()
+    {
+        files = await fileService.GetFiles();
+    }
+}

@@ -8,15 +8,26 @@ namespace LijstenMam.Data
 {
     public class FileService
     {
-        public async Task<List<File>> GetFiles()
+        private List<File> files;
+
+        public FileService()
         {
-            var files = new List<File>()
+            files = new List<File>()
             {
                 new File() {Name = "Boeken" },
                 new File() {Name = "Tijdschriften" }
             };
+        }
 
+
+        public async Task<List<File>> GetFiles()
+        {
             return await Task.FromResult(files);
+        }
+
+        public void AddFile()
+        {
+            files.Add(new File() { Name = "file" + files.Count });
         }
     }
 }

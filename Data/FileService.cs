@@ -9,7 +9,9 @@ namespace LijstenMam.Data
     public class FileService
     {
         private FileRepository FileRepository { get; set; }
-        
+
+        public IEnumerable<File> Files { get; private set; } = new List<File>();
+
         public File CurrentFile { get; set; }
 
         public FileService(FileRepository fileRepository)
@@ -21,10 +23,9 @@ namespace LijstenMam.Data
             CurrentFile = files.First();
         }
 
-
-        public async Task<List<File>> GetFiles()
+        public void Update()
         {
-            return await Task.FromResult(FileRepository.GetFiles());
+            Files = FileRepository.GetFiles();
         }
 
         public void AddFile()
@@ -34,6 +35,8 @@ namespace LijstenMam.Data
             FileRepository.Add(fileName);
 
             CurrentFile = FileRepository.GetFile(fileName);
+
+            Update();
         }
 
         public void SetFile(string fileName)

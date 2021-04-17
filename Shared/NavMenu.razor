@@ -1,10 +1,10 @@
 ﻿@using LijstenMam.Data
 
-<h3>@files.Count()</h3>
+<h3>@fileService.Files.Count()</h3>
 
 <div>
     <ul>
-        @foreach (var file in files)
+        @foreach (var file in fileService.Files)
         {
             <li @onclick="@(e => SetFile(file.Name))">@file.Name</li>
         }
@@ -13,8 +13,6 @@
 </div>
 
 @code {
-    private List<File> files;
-
     [CascadingParameter]
     protected FileService fileService { get; set; }
 
@@ -31,6 +29,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        files = await fileService.GetFiles();
+        await Task.Run(() => fileService.Update());
     }
 }

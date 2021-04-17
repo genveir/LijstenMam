@@ -1,5 +1,4 @@
 ﻿@using LijstenMam.Data
-@inject FileService fileService
 
 <h3>@files.Count()</h3>
 
@@ -7,14 +6,28 @@
     <ul>
         @foreach (var file in files)
         {
-            <li>@file.Name</li>
+            <li @onclick="@(e => SetFile(file.Name))">@file.Name</li>
         }
-        <li><button @onclick="@(e => fileService.AddFile())">Bestand Toevoegen</button></li>
+        <li><button @onclick="_CreateFile">Bestand Toevoegen</button></li>
     </ul>
 </div>
 
 @code {
     private List<File> files;
+
+    [CascadingParameter]
+    protected FileService fileService { get; set; }
+
+    [Parameter]
+    public EventCallback _CreateFile { get; set; }
+
+    [Parameter]
+    public EventCallback<string> _SetFile { get; set; }
+
+    protected async void SetFile(string name)
+    {
+        await _SetFile.InvokeAsync(name);
+    }
 
     protected override async Task OnInitializedAsync()
     {

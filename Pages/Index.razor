@@ -1,7 +1,10 @@
-﻿@page "/"
+﻿@using LijstenMam.Data
 
-<h1>Hello, world!</h1>
+@page "/"
 
-Welcome to your new app.
+<h3>@fileService.CurrentFile.Name</h3>
 
-
+@code {
+    [CascadingParameter]
+    protected FileService fileService { get; set; }
+}

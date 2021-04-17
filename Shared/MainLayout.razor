@@ -1,15 +1,32 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="sidebar">
-    <NavMenu />
-</div>
+@using LijstenMam.Data
+@inject FileService fileService
 
-<div class="main">
-    <div class="top-row px-4">
-        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+<CascadingValue Value="fileService">
+    <div class="sidebar">
+        <NavMenu _CreateFile="CreateFile" _SetFile="SetFile" />
     </div>
 
-    <div class="content px-4">
-        @Body
+    <div class="main">
+        <div class="top-row px-4">
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        </div>
+
+        <div class="content px-4">
+            @Body
+        </div>
     </div>
-</div>
+</CascadingValue>
+
+@code {
+    public void CreateFile()
+    {
+        fileService.AddFile();
+    }
+
+    public void SetFile(string fileName)
+    {
+        fileService.SetFile(fileName);
+    }
+}

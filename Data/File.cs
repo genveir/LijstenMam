@@ -9,6 +9,6 @@ namespace LijstenMam.Data
     {
         public string Name { get; set; }
 
-        public string[] Contents { get; set; }
+        public string[] Contents { get; set; } = new string[0];
     }
 }

@@ -4,6 +4,11 @@
 
 <h3>@fileService.CurrentFile.Name</h3>
 
+@foreach (var line in fileService.CurrentFile.Contents)
+            {
+                <p>@line</p>
+            }
+
 @code {
     [CascadingParameter]
     protected FileService fileService { get; set; }

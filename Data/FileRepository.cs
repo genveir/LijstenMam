@@ -10,6 +10,8 @@ namespace LijstenMam.Data
     {
         private string folder;
 
+        private static object LockObj = new object();
+
         public FileRepository(string folder)
         {
             this.folder = folder;
@@ -17,42 +19,64 @@ namespace LijstenMam.Data
 
         public List<File> GetFiles()
         {
-            var files = Directory.GetFiles(folder, "*.txt");
-
-            var parsed = new List<File>();
-            foreach(var file in files)
+            lock (LockObj)
             {
-                parsed.Add(ParseFileName(file));
-            }
+                var files = Directory.GetFiles(folder, "*.txt");
 
-            return parsed;
+                var parsed = new List<File>();
+                foreach (var file in files)
+                {
+                    parsed.Add(ParseFile(file));
+                }
+
+                return parsed;
+            }
         }
 
         public int Count => GetFiles().Count;
 
         public void Add(string fileName)
         {
-            var path = Path.Combine(folder, fileName + ".txt");
+            lock (LockObj)
+            {
+                var path = Path.Combine(folder, fileName + ".txt");
 
-            System.IO.File.Create(path);
+                using (new StreamWriter(new FileStream(path, FileMode.Create))) { }
+            }
         }
 
         public File GetFile(string fileName)
         {
-            var path = Path.Combine(folder, fileName + ".txt");
+            lock (LockObj)
+            {
 
-            if (System.IO.File.Exists(path)) return ParseFileName(path);
-            else return null;
+                var path = Path.Combine(folder, fileName + ".txt");
+
+                if (System.IO.File.Exists(path))
+                {
+                    return ParseFile(path);
+                }
+                else return null;
+            }
         }
 
-        private File ParseFileName(string fileName)
+        private File ParseFile(string path)
         {
-            var name = Path.GetFileNameWithoutExtension(fileName);
-
-            return new File()
+            lock (LockObj)
             {
-                Name = name
-            };
+                var name = Path.GetFileNameWithoutExtension(path);
+                string[] contents;
+                using (var sr = new StreamReader(new FileStream(path, FileMode.Open)))
+                {
+                    contents = sr.ReadToEnd().Split(Environment.NewLine);
+                }
+
+                return new File()
+                {
+                    Name = name,
+                    Contents = contents
+                };
+            }
         }
     }
 }

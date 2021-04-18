@@ -1,0 +1,15 @@
+﻿@using LijstenMam.Data
+
+@page "/"
+
+<h3>@file.Name</h3>
+
+@foreach (var line in file.Contents)
+{
+    <p>@line</p>
+}
+
+@code {
+    [CascadingParameter]
+    protected File file { get; set; }
+}

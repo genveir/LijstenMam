@@ -3,26 +3,43 @@
 @using LijstenMam.Data
 @inject FileService fileService
 
-<CascadingValue Value="fileService">
-    <div class="sidebar">
-        <NavMenu _CreateFile="CreateFile" _SetFile="SetFile" />
-    </div>
+<div class="sidebar">
+    <NavMenu fileService="fileService" _CreateFile="CreateFile" _SetFile="SetFile" />
+</div>
 
-    <div class="main">
-        <div class="content px-4">
+<div class="main">
+    <div class="content px-4">
+        <CascadingValue Value="file">
             @Body
-        </div>
+        </CascadingValue>
     </div>
-</CascadingValue>
+</div>
+
 
 @code {
+    public File file = new File();
+
     public void CreateFile()
     {
         fileService.AddFile();
+
+        Update();
     }
 
     public void SetFile(string fileName)
     {
         fileService.SetFile(fileName);
+
+        Update();
+    }
+
+    protected void Update()
+    {
+        file = fileService.CurrentFile.Copy();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Run(() => fileService.Update());
     }
 }

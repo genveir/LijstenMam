@@ -13,8 +13,8 @@
 </div>
 
 @code {
-    [CascadingParameter]
-    protected FileService fileService { get; set; }
+    [Parameter]
+    public FileService fileService { get; set; }
 
     [Parameter]
     public EventCallback _CreateFile { get; set; }
@@ -25,10 +25,5 @@
     protected async void SetFile(string name)
     {
         await _SetFile.InvokeAsync(name);
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        await Task.Run(() => fileService.Update());
     }
 }

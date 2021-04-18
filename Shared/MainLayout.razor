@@ -9,7 +9,7 @@
 
 <div class="main">
     <div class="content px-4">
-        <CascadingValue Value="file">
+        <CascadingValue Value="this">
             @Body
         </CascadingValue>
     </div>
@@ -26,16 +26,23 @@
         Update();
     }
 
-    public void SetFile(string fileName)
+    public void SetFile(File file)
     {
-        fileService.SetFile(fileName);
+        fileService.SetFile(file);
 
         Update();
+    }
+
+    public void Save()
+    {
+        fileService.Save(file);
     }
 
     protected void Update()
     {
         file = fileService.CurrentFile.Copy();
+
+        file.Contents = file.Contents.OrderBy(c => c).ToList();
     }
 
     protected override async Task OnInitializedAsync()

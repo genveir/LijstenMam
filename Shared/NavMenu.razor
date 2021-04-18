@@ -6,7 +6,7 @@
     <ul>
         @foreach (var file in fileService.Files)
         {
-            <li @onclick="@(e => SetFile(file.Name))">@file.Name</li>
+            <li @onclick="@(e => SetFile(file))">@file.Name</li>
         }
         <li><button @onclick="_CreateFile">Bestand Toevoegen</button></li>
     </ul>
@@ -20,10 +20,10 @@
     public EventCallback _CreateFile { get; set; }
 
     [Parameter]
-    public EventCallback<string> _SetFile { get; set; }
+    public EventCallback<File> _SetFile { get; set; }
 
-    protected async void SetFile(string name)
+    protected async void SetFile(File file)
     {
-        await _SetFile.InvokeAsync(name);
+        await _SetFile.InvokeAsync(file);
     }
 }

@@ -39,10 +39,13 @@ namespace LijstenMam.Data
             Update();
         }
 
-        public void SetFile(string fileName)
+        public void Save(File file)
         {
-            var file = FileRepository.GetFile(fileName);
 
+        }
+
+        public void SetFile(File file)
+        {
             CurrentFile = file;
         }
     }

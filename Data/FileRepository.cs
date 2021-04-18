@@ -65,7 +65,7 @@ namespace LijstenMam.Data
             lock (LockObj)
             {
                 var name = Path.GetFileNameWithoutExtension(path);
-                string[] contents;
+                IEnumerable<string> contents;
                 using (var sr = new StreamReader(new FileStream(path, FileMode.Open)))
                 {
                     contents = sr.ReadToEnd().Split(Environment.NewLine);

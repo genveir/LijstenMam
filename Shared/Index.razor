@@ -8,8 +8,22 @@
 {
     <p>@line</p>
 }
+<p><input @bind="newLineVal"/><button @onclick="AddLine">Regel toevoegen</button></p>
 
 @code {
     [CascadingParameter]
-    protected File file { get; set; }
+    protected MainLayout mainLayout { get; set; }
+
+    private File file => mainLayout.file;
+
+    private void Save() => mainLayout.Save();
+
+    private string newLineVal;
+
+    private void AddLine()
+    {
+        file.Contents = file.Contents.Append(newLineVal).OrderBy(c => c);
+
+        newLineVal = null;
+    }
 }

@@ -9,15 +9,11 @@ namespace LijstenMam.Data
     {
         public string Name { get; set; }
 
-        public string[] Contents { get; set; } = new string[0];
+        public IEnumerable<string> Contents { get; set; } = new List<string>();
 
         public File Copy()
         {
-            var newContents = new string[this.Contents.Length];
-            if (newContents.Length > 0)
-            {
-                this.Contents.CopyTo(newContents, 0);
-            }
+            var newContents = new List<string>(Contents);
 
             return new File()
             {

@@ -1,15 +1,13 @@
 ﻿@using LijstenMam.Data
 
-<h3>@fileService.Files.Count()</h3>
+<h3>@fileService.Files.Count() bestanden beschikbaar:</h3>
 
 <div>
-    <ul>
-        @foreach (var file in fileService.Files)
-        {
-            <li @onclick="@(e => SetFile(file))">@file.Name</li>
-        }
-        <li><button @onclick="_CreateFile">Bestand Toevoegen</button></li>
-    </ul>
+    @foreach (var file in fileService.Files)
+    {
+        <a @onclick="@(e => SetFile(file))">@file.Name</a><br />
+    }
+    <button class="btn-primary" @onclick="_CreateFile">Bestand Toevoegen</button>
 </div>
 
 @code {

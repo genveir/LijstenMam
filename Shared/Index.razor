@@ -1,14 +1,20 @@
 ﻿@using LijstenMam.Data
 
 @page "/"
-
+@if (file.Name == null)
+{
+    <h3>Geen bestand geselecteerd</h3>
+}
+else
+{
 <h3>@file.Name</h3>
 
 @foreach (var line in file.Contents)
 {
     <p>@line</p>
 }
-<p><input @bind="newLineVal"/><button @onclick="AddLine">Regel toevoegen</button></p>
+<p><input @bind="newLineVal"/><button class="btn-primary" @onclick="AddLine">Regel toevoegen</button></p>
+}
 
 @code {
     [CascadingParameter]

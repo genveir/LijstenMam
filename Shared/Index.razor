@@ -1,35 +1,28 @@
-﻿@using LijstenMam.Data
+﻿@page "/"
 
-@page "/"
-@if (file.Name == null)
-{
-    <h3>Geen bestand geselecteerd</h3>
-}
-else
-{
-<h3>@file.Name</h3>
+@using LijstenMam.Data
+@inject FileService fileService
 
-@foreach (var line in file.Contents)
-{
-    <p>@line</p>
-}
-<p><input @bind="newLineVal"/><button class="btn-primary" @onclick="AddLine">Regel toevoegen</button></p>
-}
+<div class="main">
+    <div class="content px-4">
+        <label>
+            Upload hier je word-bestand:
+            <InputFile OnChange="@LoadFile" />
+        </label>
+    </div>
+</div>
 
 @code {
-    [CascadingParameter]
-    protected MainLayout mainLayout { get; set; }
+    public File file = new File();
 
-    private File file => mainLayout.file;
+    public bool IsLoading;
 
-    private void Save() => mainLayout.Save();
-
-    private string newLineVal;
-
-    private void AddLine()
+    async Task LoadFile(InputFileChangeEventArgs e)
     {
-        file.Contents = file.Contents.Append(newLineVal).OrderBy(c => c);
+        IsLoading = true;
 
-        newLineVal = null;
+        await fileService.LoadFile(e.File.OpenReadStream(10000000));
+
+        IsLoading = false;
     }
 }

@@ -1,6 +1,8 @@
 ﻿using LijstenMam.Shared;
+using NPOI.XWPF.UserModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,45 +10,43 @@ namespace LijstenMam.Data
 {
     public class FileService
     {
-        private FileRepository FileRepository { get; set; }
+       private File File { get; set; }
 
-        public IEnumerable<File> Files { get; private set; } = new List<File>();
-
-        public File CurrentFile { get; set; }
-
-        public FileService(FileRepository fileRepository)
+        public async Task LoadFile(Stream fileStream)
         {
-            this.FileRepository = fileRepository;
+            var bytes = await UploadFile(fileStream);
+            var document = await ConvertToDocX(bytes);
 
-            var files = fileRepository.GetFiles();
-
-            CurrentFile = files.First();
+            File = await Parse(document);
         }
 
-        public void Update()
+        private async Task<byte[]> UploadFile(Stream fileStream)
         {
-            Files = FileRepository.GetFiles();
+            var length = (int)fileStream.Length;
+            var contents = new byte[length];
+
+            await fileStream.ReadAsync(contents, 0, length);
+
+            return contents;
         }
 
-        public void AddFile()
+        private async Task<XWPFDocument> ConvertToDocX(byte[] contents)
         {
-            var fileName = "file" + FileRepository.Count;
+            return await Task.Run(() =>
+            {
+                XWPFDocument document;
+                using (var memStream = new MemoryStream(contents))
+                {
+                    document = new XWPFDocument(memStream);
+                }
 
-            FileRepository.Add(fileName);
-
-            CurrentFile = FileRepository.GetFile(fileName);
-
-            Update();
+                return document;
+            });
         }
 
-        public void Save(File file)
+        private async Task<File> Parse(XWPFDocument docX)
         {
-
-        }
-
-        public void SetFile(File file)
-        {
-            CurrentFile = file;
+            return await Task.FromResult(new File());
         }
     }
 }

@@ -9,17 +9,12 @@ namespace LijstenMam.Data
     {
         public string Name { get; set; }
 
-        public IEnumerable<string> Contents { get; set; } = new List<string>();
+        public IEnumerable<Line> Lines { get; set; }
+    }
 
-        public File Copy()
-        {
-            var newContents = new List<string>(Contents);
-
-            return new File()
-            {
-                Name = this.Name,
-                Contents = newContents
-            };
-        }
+    public class Line
+    {
+        public long LineNumber { get; set; }
+        public string Text { get; set; }
     }
 }

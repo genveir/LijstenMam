@@ -5,6 +5,10 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<Watch Include="..\ClientProject\**\*.razor"/>
+		<Watch Include="..\ClientProject\**\*.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="NPOI" Version="2.5.3" />
 	</ItemGroup>
 </Project>

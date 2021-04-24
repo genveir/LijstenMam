@@ -9,12 +9,11 @@ namespace LijstenMam.Data
     {
         public string Name { get; set; }
 
-        public IEnumerable<Line> Lines { get; set; }
-    }
+        public Document FileRoot { get; set; }
 
-    public class Line
-    {
-        public long LineNumber { get; set; }
-        public string Text { get; set; }
+        public File()
+        {
+            FileRoot = new Document(Name);
+        }
     }
 }

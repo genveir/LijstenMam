@@ -12,12 +12,12 @@ namespace LijstenMam.Data
     {
        private File File { get; set; }
 
-        public async Task LoadFile(Stream fileStream)
+        public async Task LoadFile(Stream fileStream, string name)
         {
             var bytes = await UploadFile(fileStream);
             var document = await ConvertToDocX(bytes);
 
-            File = await Parse(document);
+            File = await Parse(document, name);
         }
 
         private async Task<byte[]> UploadFile(Stream fileStream)
@@ -44,9 +44,41 @@ namespace LijstenMam.Data
             });
         }
 
-        private async Task<File> Parse(XWPFDocument docX)
+        private async Task<File> Parse(XWPFDocument docX, string name)
         {
-            return await Task.FromResult(new File());
+            var doc = new Document(name);
+            FileElement currentElement = doc;
+
+            await Task.Run(() => {
+                for (int n = 0; n < docX.Paragraphs.Count; n++)
+                {
+                    currentElement = ParseParagraph(n, docX.Paragraphs[n], currentElement);
+                }
+            });
+
+            return new File() { Name = name, FileRoot = doc };
+        }
+
+        private FileElement ParseParagraph(int paragraphNumber, XWPFParagraph paragraph, FileElement currentElement)
+        {
+            var text = paragraph.Text;
+            if (string.IsNullOrWhiteSpace(text)) return currentElement;
+
+            var numIndent = paragraph.NumLevelText;
+            var isBold = paragraph.IRuns.Any(ir =>
+            {
+                var run = ir as XWPFRun;
+                return run?.IsBold ?? false;
+            });
+
+            FileElement toAdd;
+            if (isBold) toAdd = new Category(paragraphNumber, text.Trim());
+            else if (numIndent != null) toAdd = new Article(paragraphNumber, text);
+            else toAdd = new Book(paragraphNumber, text);
+
+            toAdd.AddTo(currentElement);
+
+            return toAdd;
         }
     }
 }

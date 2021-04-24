@@ -21,7 +21,7 @@
     {
         IsLoading = true;
 
-        await fileService.LoadFile(e.File.OpenReadStream(10000000));
+        await fileService.LoadFile(e.File.OpenReadStream(10000000), e.File.Name);
 
         IsLoading = false;
     }

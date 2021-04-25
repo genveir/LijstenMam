@@ -7,6 +7,12 @@ namespace LijstenMam.ElasticSearch
 {
     public class FileElementDTO
     {
+        public FileElementDTO()
+        {
+            this.Compilers = new List<string>();
+            this.Authors = new List<string>();
+        }
+
         public long ParagraphNumber { get; set; }
 
         public string Genre { get; set; }

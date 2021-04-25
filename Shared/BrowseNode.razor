@@ -1,0 +1,34 @@
+﻿<div class="card">
+    <p>@element.Text</p>
+
+    @if (!open && element.Children.Any())
+    {
+        <button @onclick="ToggleOpen">Open</button>
+    }
+    else
+    {
+        @foreach (var child in element.Children)
+        {
+            <div class="card-body">
+                <BrowseNode element="child" />
+            </div>
+        }
+
+        @if (element.Children.Any())
+        {
+            <button @onclick="ToggleOpen">Close</button>
+        }
+    }
+</div>
+
+@code {
+    bool open = false;
+
+    [Parameter]
+    public FileElement element { get; set; }
+
+    private void ToggleOpen()
+    {
+        open = !open;
+    }
+}

@@ -1,28 +1,34 @@
 ﻿@page "/"
 
-@using LijstenMam.Data
 @inject FileService fileService
 
 <div class="main">
     <div class="content px-4">
-        <label>
-            Upload hier je word-bestand:
-            <InputFile OnChange="@LoadFile" />
-        </label>
+        @if (file == null)
+        {
+            <label>
+                Upload hier je word-bestand:<br />
+                <InputFile OnChange="(e => LoadFile(e))" />
+            </label>
+        }
+        else
+        {
+            <BrowseNode element="file.FileRoot" />
+        }
     </div>
 </div>
 
 @code {
     public File file => fileService.File;
 
-    public bool IsLoading;
+    public bool HasFile;
 
     async Task LoadFile(InputFileChangeEventArgs e)
     {
-        IsLoading = true;
-
         await fileService.LoadFile(e.File.OpenReadStream(10000000), e.File.Name);
 
-        IsLoading = false;
+        HasFile = true;
+
+        await InvokeAsync(() => StateHasChanged());
     }
 }

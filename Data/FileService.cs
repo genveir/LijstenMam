@@ -10,7 +10,7 @@ namespace LijstenMam.Data
 {
     public class FileService
     {
-       private File File { get; set; }
+       public File File { get; set; }
 
         public async Task LoadFile(Stream fileStream, string name)
         {

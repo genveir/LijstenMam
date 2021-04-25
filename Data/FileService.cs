@@ -1,4 +1,4 @@
-﻿using LijstenMam.Shared;
+﻿using LijstenMam.ElasticSearch;
 using NPOI.XWPF.UserModel;
 using System;
 using System.Collections.Generic;
@@ -18,6 +18,8 @@ namespace LijstenMam.Data
             var document = await ConvertToDocX(bytes);
 
             File = await Parse(document, name);
+
+            new ESClient().Fill(File.FileRoot);
         }
 
         private async Task<byte[]> UploadFile(Stream fileStream)

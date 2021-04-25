@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LijstenMam.ElasticSearch;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,11 @@ namespace LijstenMam.Data
         public override void AddTo(FileElement element)
         {
             throw new NotImplementedException("cannot add a document to another file element");
+        }
+
+        public override void Convert(DocumentConverter converter, FileElementDTO parentInfo)
+        {
+            converter.ConvertElement(this, parentInfo);
         }
 
         public override void Add(Genre genre)

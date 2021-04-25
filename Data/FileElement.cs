@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LijstenMam.ElasticSearch;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace LijstenMam.Data
         public abstract void Add(Article article);
 
         public abstract void AddTo(FileElement element);
+
+        public abstract void Convert(DocumentConverter converter, FileElementDTO parentInfo);
 
         public long ParagraphNumber { get; set; }
         public string Text { get; set; }

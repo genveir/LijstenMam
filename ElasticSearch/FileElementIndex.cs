@@ -39,7 +39,7 @@ namespace LijstenMam.ElasticSearch
 
             if (!deleteResponse.IsValid)
             {
-                if (deleteResponse.ServerError.Status != 404)
+                if (deleteResponse.ServerError?.Status != 404)
                 {
                     throw new InvalidElasticSearchResponseException("Clear-call to ElasticSearch did not return a valid response",
                         deleteResponse.OriginalException);

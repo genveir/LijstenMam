@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Nest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace LijstenMam.ElasticSearch
 {
+    [ElasticsearchType(IdProperty = "ParagraphNumber")]
     public class FileElementDTO
     {
         public FileElementDTO()

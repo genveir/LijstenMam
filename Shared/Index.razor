@@ -14,20 +14,38 @@
         else
         {
             <BrowseNode element="file.FileRoot" />
+
+            <div>
+                <input @bind="searchTerm" />
+                <button @onclick="Search">Search</button>
+            </div>
+            <div>
+                @foreach (var hit in hits)
+                {
+                    <SearchNode element="hit" />
+                }
+            </div>
         }
     </div>
 </div>
 
 @code {
-    public File file => fileService.File;
+    protected File file => fileService.File;
 
-    public bool HasFile;
+    protected string searchTerm;
+    protected IEnumerable<FileElement> hits = new List<FileElement>();
+
+
+    async Task Search()
+    {
+        hits = await fileService.Search(searchTerm, new SearchOptions());
+
+        await InvokeAsync(() => StateHasChanged());
+    }
 
     async Task LoadFile(InputFileChangeEventArgs e)
     {
         await fileService.LoadFile(e.File.OpenReadStream(10000000), e.File.Name);
-
-        HasFile = true;
 
         await InvokeAsync(() => StateHasChanged());
     }

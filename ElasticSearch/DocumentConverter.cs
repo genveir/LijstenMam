@@ -73,6 +73,8 @@ namespace LijstenMam.ElasticSearch
             articleDTO.Authors = article.GetAuthors();
             articleDTO.ArticleTitle = article.GetTitle();
 
+            this.elements.Add(articleDTO);
+
             MapNextLevel(article, articleDTO);
         }
     }

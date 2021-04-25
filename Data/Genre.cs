@@ -14,11 +14,11 @@ namespace LijstenMam.Data
             element.Add(this);
         }
 
-        public override void Add(Genre category)
+        public override void Add(Genre genre)
         {
-            if (this.Parent == null) throw new NotImplementedException("category has no parent");
+            if (this.Parent == null) throw new NotImplementedException("genre has no parent");
 
-            this.Parent.Add(category);
+            this.Parent.Add(genre);
         }
 
         public override void Add(Book book)

@@ -15,7 +15,7 @@ namespace LijstenMam.Data
             this._Children = new List<FileElement>();
         }
 
-        public abstract void Add(Genre category);
+        public abstract void Add(Genre genre);
 
         public abstract void Add(Book book);
 

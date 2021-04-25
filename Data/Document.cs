@@ -14,10 +14,10 @@ namespace LijstenMam.Data
             throw new NotImplementedException("cannot add a document to another file element");
         }
 
-        public override void Add(Genre category)
+        public override void Add(Genre genre)
         {
-            this._Children.Add(category);
-            category.Parent = this;
+            this._Children.Add(genre);
+            genre.Parent = this;
         }
 
         public override void Add(Book book)

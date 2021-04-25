@@ -10,7 +10,7 @@ namespace LijstenMam.Data
 {
     public class FileService
     {
-       public File File { get; set; }
+        public File File { get; set; }
 
         public async Task LoadFile(Stream fileStream, string name)
         {
@@ -51,7 +51,8 @@ namespace LijstenMam.Data
             var doc = new Document(name);
             FileElement currentElement = doc;
 
-            await Task.Run(() => {
+            await Task.Run(() =>
+            {
                 for (int n = 0; n < docX.Paragraphs.Count; n++)
                 {
                     currentElement = ParseParagraph(n, docX.Paragraphs[n], currentElement);

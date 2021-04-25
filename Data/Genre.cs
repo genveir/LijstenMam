@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 
 namespace LijstenMam.Data
 {
-    public class Category : FileElement
+    public class Genre : FileElement
     {
-        public Category(long paragraphNumber, string text) : base( paragraphNumber, text) { }
+        public Genre(long paragraphNumber, string text) : base( paragraphNumber, text) { }
 
         public override void AddTo(FileElement element)
         {
             element.Add(this);
         }
 
-        public override void Add(Category category)
+        public override void Add(Genre category)
         {
             if (this.Parent == null) throw new NotImplementedException("category has no parent");
 

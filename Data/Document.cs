@@ -14,7 +14,7 @@ namespace LijstenMam.Data
             throw new NotImplementedException("cannot add a document to another file element");
         }
 
-        public override void Add(Category category)
+        public override void Add(Genre category)
         {
             this._Children.Add(category);
             category.Parent = this;

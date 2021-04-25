@@ -14,7 +14,7 @@ namespace LijstenMam.Data
             element.Add(this);
         }
 
-        public override void Add(Category category)
+        public override void Add(Genre category)
         {
             if (this.Parent == null) throw new NotImplementedException("book has no parent");
 

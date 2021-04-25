@@ -72,7 +72,7 @@ namespace LijstenMam.Data
             });
 
             FileElement toAdd;
-            if (isBold) toAdd = new Category(paragraphNumber, text.Trim());
+            if (isBold) toAdd = new Genre(paragraphNumber, text.Trim());
             else if (numIndent != null) toAdd = new Article(paragraphNumber, text);
             else toAdd = new Book(paragraphNumber, text);
 

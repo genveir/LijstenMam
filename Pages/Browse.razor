@@ -1,10 +1,12 @@
 ﻿@page "/"
 
-    <div>
-        <BrowseNode element="element" />
-    </div>
+<h3>Browse</h3>
 
-    @code {
-        [CascadingParameter]
-        public FileElement element { get; set; }
-    }
+<div>
+    <BrowseNode element="element" />
+</div>
+
+@code {
+    [CascadingParameter]
+    public FileElement element { get; set; }
+}

@@ -59,10 +59,12 @@ namespace LijstenMam.Data
                 .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(t => t.Trim());
 
-            foreach(var token in tokens)
+            bool allFound = true;
+            foreach (var token in tokens)
             {
-                if (element.Text.Contains(token, StringComparison.InvariantCultureIgnoreCase)) result.Add(element.ParagraphNumber);
+                allFound = allFound && element.Text.Contains(token, StringComparison.InvariantCultureIgnoreCase);
             }
+            if (allFound) result.Add(element.ParagraphNumber);
 
             foreach(var child in element.Children)
             {

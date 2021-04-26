@@ -19,6 +19,7 @@ namespace LijstenMam.ElasticSearch
             var connectionPool = new StaticConnectionPool(uris);
 
             var settings = new ConnectionSettings(connectionPool)
+                .PingTimeout(TimeSpan.FromMilliseconds(100))
                 .DefaultIndex(FileElementIndex.INDEX_NAME);
 
             client = new ElasticClient(settings);
@@ -35,7 +36,8 @@ namespace LijstenMam.ElasticSearch
 
         public async Task<bool> Check()
         {
-            var pingResponse = await client.PingAsync(p => p.Human());
+            var pingResponse = await client
+                .PingAsync(p => p.Human());
 
             if (pingResponse == null || !pingResponse.IsValid) return false;
             return true;

@@ -8,5 +8,7 @@ namespace LijstenMam.Data
     public interface ISearchService
     {
         Task<IEnumerable<FileElement>> Search(string term, SearchOptions options);
+
+        bool UsingElasticSearch { get; }
     }
 }

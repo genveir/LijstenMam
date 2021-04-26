@@ -10,13 +10,13 @@ namespace LijstenMam.ElasticSearch
     {
         public const string INDEX_NAME = "bestandselementen";
 
-        public static void Reset(ElasticClient client)
+        public static async Task Reset(ElasticClient client)
         {
-            Delete(client);
-            Create(client);
+            await Delete(client);
+            await Create(client);
         }
 
-        public static void Add(ElasticClient client, IEnumerable<FileElementDTO> books)
+        public static async Task Add(ElasticClient client, IEnumerable<FileElementDTO> books)
         {
             var overflow = (books.Count() % 10000 == 0) ? 0 : 1;
             var numRuns = books.Count() / 10000 + overflow;
@@ -25,7 +25,7 @@ namespace LijstenMam.ElasticSearch
             {
                 var page = books.Skip(n * 10000).Take(10000);
 
-                var bulkResponse = client.Bulk(b => b.IndexMany(page));
+                var bulkResponse = await client.BulkAsync(b => b.IndexMany(page));
 
                 if (!bulkResponse.IsValid)
                     throw new InvalidElasticSearchResponseException("AddOrUpdateMany-call to ElasticSearch did not return a valid response",
@@ -33,9 +33,9 @@ namespace LijstenMam.ElasticSearch
             }
         }
 
-        private static void Delete(ElasticClient client)
+        private static async Task Delete(ElasticClient client)
         {
-            var deleteResponse = client.Indices.Delete(FileElementIndex.INDEX_NAME);
+            var deleteResponse = await client.Indices.DeleteAsync(FileElementIndex.INDEX_NAME);
 
             if (!deleteResponse.IsValid)
             {
@@ -47,9 +47,9 @@ namespace LijstenMam.ElasticSearch
             }
         }
 
-        private static void Create(ElasticClient client)
+        private static async Task Create(ElasticClient client)
         {
-            var createResponse = client.Indices.Create(INDEX_NAME, c => c
+            var createResponse = await client.Indices.CreateAsync(INDEX_NAME, c => c
                 .Settings(s => s
                     .Analysis(a => a
                         .Normalizers(n => n

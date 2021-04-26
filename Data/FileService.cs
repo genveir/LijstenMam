@@ -1,5 +1,4 @@
-﻿using LijstenMam.ElasticSearch;
-using NPOI.XWPF.UserModel;
+﻿using NPOI.XWPF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LijstenMam.Data
 {
-    public class FileService : IFileService, ISearchService
+    public class FileService : IFileService
     {
         public File File { get; set; }
 
@@ -18,17 +17,6 @@ namespace LijstenMam.Data
             var document = await ConvertToDocX(bytes);
 
             File = await Parse(document, name);
-
-            new ESClient().Fill(File.FileRoot);
-        }
-
-        public async Task<IEnumerable<FileElement>> Search(string term, SearchOptions options)
-        {
-            var paragraphIds = await new ESClient().Search(term, options);
-
-            var elements = File.GetElementsByParagraphId(paragraphIds);
-
-            return elements;
         }
 
         private async Task<byte[]> UploadFile(Stream fileStream)

@@ -29,9 +29,8 @@ namespace LijstenMam
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            services.AddSingleton<FileService>();
-            services.AddSingleton<IFileService>(svc => svc.GetService<FileService>());
-            services.AddSingleton<ISearchService>(svc => svc.GetService<FileService>());
+            services.AddSingleton<IFileService, FileService>();
+            services.AddSingleton<ISearchService, SearchService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

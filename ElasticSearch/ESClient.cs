@@ -24,13 +24,21 @@ namespace LijstenMam.ElasticSearch
             client = new ElasticClient(settings);
         }
 
-        public void Fill(Document document)
+        public async Task Fill(Document document)
         {
-            FileElementIndex.Reset(client);
+            await FileElementIndex.Reset(client);
 
             var books = DocumentConverter.Convert(document);
 
-            FileElementIndex.Add(client, books);
+            await FileElementIndex.Add(client, books);
+        }
+
+        public async Task<bool> Check()
+        {
+            var pingResponse = await client.PingAsync(p => p.Human());
+
+            if (pingResponse == null || !pingResponse.IsValid) return false;
+            return true;
         }
 
         public async Task<IEnumerable<long>> Search(string term, SearchOptions options)

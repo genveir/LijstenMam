@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LijstenMam.Data
 {
-    public class FileService
+    public class FileService : IFileService, ISearchService
     {
         public File File { get; set; }
 

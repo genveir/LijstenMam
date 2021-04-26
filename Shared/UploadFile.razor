@@ -1,0 +1,9 @@
+﻿<div>
+    Upload hier je word-bestand:<br />
+    <InputFile OnChange="_LoadFile" />
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<InputFileChangeEventArgs> _LoadFile { get; set; }
+}

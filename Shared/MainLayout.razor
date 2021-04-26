@@ -1,3 +1,32 @@
 ﻿@inherits LayoutComponentBase
 
-@Body
+@inject IFileService fileService
+
+<nav class="navbar navbar-expand-lg">
+    <a class="nav-link" href="/">Browse</a>
+    <a class="nav-link" href="/search">Search</a>
+</nav>
+
+<div class="main">
+    <div class="content px-4">
+        @if (file == null)
+        {
+            <UploadFile _LoadFile="LoadFile" />
+        }
+        else
+        {
+            <CascadingValue Value="file.FileRoot">
+                @Body
+            </CascadingValue>
+        }
+    </div>
+</div>
+
+@code {
+    protected File file => fileService.File;
+
+    async Task LoadFile(InputFileChangeEventArgs e)
+    {
+        await fileService.LoadFile(e.File.OpenReadStream(10000000), e.File.Name);
+    }
+}

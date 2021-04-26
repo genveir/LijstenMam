@@ -1,0 +1,10 @@
+﻿@page "/"
+
+    <div>
+        <BrowseNode element="element" />
+    </div>
+
+    @code {
+        [CascadingParameter]
+        public FileElement element { get; set; }
+    }

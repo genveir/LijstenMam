@@ -1,0 +1,29 @@
+﻿@page "/search"
+
+@inject ISearchService SearchService;
+
+<h3>Search</h3>
+
+<div>
+    <input @bind="searchTerm" />
+    <button @onclick="PerformSearch">Search</button>
+</div>
+<div>
+    @foreach (var hit in hits)
+    {
+        <SearchNode element="hit" />
+    }
+</div>
+
+
+@code {
+    protected string searchTerm;
+    protected IEnumerable<FileElement> hits = new List<FileElement>();
+
+    async Task PerformSearch()
+    {
+        hits = await SearchService.Search(searchTerm, new SearchOptions());
+
+        await InvokeAsync(() => StateHasChanged());
+    }
+}

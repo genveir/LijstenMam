@@ -10,6 +10,8 @@ namespace LijstenMam.Data
     {
         Task LoadFile(Stream fileStream, string name);
 
+        Task Reset();
+
         File File { get; }
     }
 }

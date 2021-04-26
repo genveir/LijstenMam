@@ -19,6 +19,11 @@ namespace LijstenMam.Data
             File = await Parse(document, name);
         }
 
+        public async Task Reset()
+        {
+            await Task.Run(() => File = null);
+        }
+
         private async Task<byte[]> UploadFile(Stream fileStream)
         {
             var length = (int)fileStream.Length;

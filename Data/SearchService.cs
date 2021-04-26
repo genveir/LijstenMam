@@ -11,7 +11,7 @@ namespace LijstenMam.Data
         public bool UsingElasticSearch { get; set; }
 
         private IFileService fileService;
-        private bool filled = false;
+        private File activeFile;
 
         public SearchService(IFileService fileService)
         {
@@ -20,7 +20,9 @@ namespace LijstenMam.Data
 
         public async Task<IEnumerable<FileElement>> Search(string term, SearchOptions options)
         {
-            await CheckOnline();
+            UsingElasticSearch = await CheckOnline();
+
+            Console.WriteLine("using elastic search: " + UsingElasticSearch);
 
             var file = fileService.File;
 
@@ -28,18 +30,28 @@ namespace LijstenMam.Data
             if (UsingElasticSearch) paragraphIds = await SearchES(file, term, options);
             else paragraphIds = await SearchManual(file, term, options);
 
+            Console.WriteLine("found " + paragraphIds.Count() + " results");
+
             var elements = file.GetElementsByParagraphId(paragraphIds);
 
             return elements;
         }
 
-        private async Task<IEnumerable<long>> SearchES(File file, string term, SearchOptions options)
+        public async Task Fill()
         {
-            if (!filled)
+            UsingElasticSearch = await CheckOnline();
+
+            var file = fileService.File;
+
+            if (UsingElasticSearch && file != activeFile)
             {
                 await new ESClient().Fill(file.FileRoot);
+                activeFile = file;
             }
+        }
 
+        private async Task<IEnumerable<long>> SearchES(File file, string term, SearchOptions options)
+        {
             return await new ESClient().Search(term, options);
         }
 

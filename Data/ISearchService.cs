@@ -9,6 +9,8 @@ namespace LijstenMam.Data
     {
         Task<IEnumerable<FileElement>> Search(string term, SearchOptions options);
 
+        Task Fill();
+
         bool UsingElasticSearch { get; }
     }
 }

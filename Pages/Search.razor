@@ -26,4 +26,9 @@
 
         await InvokeAsync(() => StateHasChanged());
     }
+
+    protected async override Task OnInitializedAsync()
+    {
+        await SearchService.Fill();
+    }
 }

@@ -32,6 +32,6 @@ namespace LijstenMam.Data
         public FileElement Parent { get; set; }
 
         protected List<FileElement> _Children { get; }
-        public IEnumerable<FileElement> Children => _Children;
+        public IEnumerable<FileElement> Children => _Children.OrderBy(c => c.Text);
     }
 }

@@ -74,7 +74,7 @@ namespace LijstenMam.Data
             bool allFound = true;
             foreach (var token in tokens)
             {
-                allFound = allFound && element.Text.Contains(token, StringComparison.InvariantCultureIgnoreCase);
+                allFound = allFound && element.RawText.Contains(token, StringComparison.InvariantCultureIgnoreCase);
             }
             if (allFound) result.Add(element.ParagraphNumber);
 

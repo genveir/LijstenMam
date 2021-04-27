@@ -1,5 +1,21 @@
 ﻿<div class="card">
-    <p>@element.Text</p>
+    @if (element is Genre)
+    {
+        <GenreBrowseCard element="element" />
+    }
+    else if (element is Book)
+    {
+        <BookBrowseCard element="element" />
+    }
+    else if (element is Article)
+    {
+        <ArticleBrowseCard element="element" />
+    }
+    else
+    {
+        <h3>@element.RawText</h3>
+    }
+
 
     @if (!open && element.Children.Any())
     {

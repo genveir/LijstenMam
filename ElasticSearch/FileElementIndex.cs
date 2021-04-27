@@ -58,7 +58,7 @@ namespace LijstenMam.ElasticSearch
                 ))))
                 .Map<FileElementDTO>(m => m.Properties(ps => ps
                     .Number(s => s.Name(n => n.ParagraphNumber))
-                    .Text(s => s.Name(n => n.Genre))
+                    .Text(s => s.Name(n => n.Genres))
                     .Text(s => s.Name(n => n.Compilers))
                     .Text(s => s.Name(n => n.BookTitle))
                     .Text(s => s.Name(n => n.Authors))

@@ -82,6 +82,7 @@ namespace LijstenMam.Data
             else toAdd = new Book(paragraphNumber, text);
 
             toAdd.AddTo(currentElement);
+            toAdd.SetElementData();
 
             return toAdd;
         }

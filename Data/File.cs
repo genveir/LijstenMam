@@ -14,7 +14,7 @@ namespace LijstenMam.Data
 
         public File()
         {
-            FileRoot = new Document(Name);
+            
         }
 
         public void MapElements(FileElement element)

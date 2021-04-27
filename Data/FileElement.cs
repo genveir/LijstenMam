@@ -10,28 +10,33 @@ namespace LijstenMam.Data
     {
         public FileElement(long paragraphNumber, string text)
         {
+            while (text.Contains("\t\t")) text = text.Replace("\t\t", "\t");
+
             this.ParagraphNumber = paragraphNumber;
-            this.Text = text;
+            this.RawText = text;
 
             this._Children = new List<FileElement>();
         }
 
-        public abstract void Add(Genre genre);
-
-        public abstract void Add(Book book);
-
-        public abstract void Add(Article article);
-
-        public abstract void AddTo(FileElement element);
-
-        public abstract void Convert(DocumentConverter converter, FileElementDTO parentInfo);
-
         public long ParagraphNumber { get; set; }
-        public string Text { get; set; }
+
+        public string RawText { get; set; }
+
+        public ElementData ElementData { get; set; }
+
+        internal abstract void Add(Genre genre);
+
+        internal abstract void Add(Book book);
+
+        internal abstract void Add(Article article);
+
+        internal abstract void AddTo(FileElement element);
+
+        internal abstract void SetElementData();
 
         public FileElement Parent { get; set; }
 
         protected List<FileElement> _Children { get; }
-        public IEnumerable<FileElement> Children => _Children.OrderBy(c => c.Text);
+        public IEnumerable<FileElement> Children => _Children.OrderBy(c => c.RawText);
     }
 }

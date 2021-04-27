@@ -8,11 +8,9 @@ namespace LijstenMam.ElasticSearch
 {
     public class DocumentConverter
     {
-        private List<FileElementDTO> elements;
-
         private DocumentConverter()
         {
-            elements = new List<FileElementDTO>();
+            
         }
 
         public static IEnumerable<FileElementDTO> Convert(Document document)
@@ -22,60 +20,29 @@ namespace LijstenMam.ElasticSearch
 
         private IEnumerable<FileElementDTO> _Convert(Document document)
         {
-            document.Convert(this, new FileElementDTO());
+            var dtos = new List<FileElementDTO>();
 
-            return elements;
+            Convert(document, dtos);
+
+            return dtos;
         }
 
-        private void MapNextLevel(FileElement fileElement, FileElementDTO info)
+        private void Convert(FileElement element, List<FileElementDTO> dtos)
         {
-            foreach (var childElement in fileElement.Children)
+            dtos.Add(new FileElementDTO()
             {
-                childElement.Convert(this, info.Copy());
+                ParagraphNumber = element.ParagraphNumber,
+                Genres = element.ElementData.Genres,
+                Compilers = element.ElementData.Compilers,
+                BookTitle = element.ElementData.BookTitle,
+                Authors = element.ElementData.Authors,
+                ArticleTitle = element.ElementData.ArticleTitle
+            });
+
+            foreach(var child in element.Children)
+            {
+                Convert(child, dtos);
             }
-        }
-
-        public void ConvertElement(Document document, FileElementDTO parentInfo)
-        {
-            MapNextLevel(document, parentInfo);
-        }
-
-        public void ConvertElement(Genre genre, FileElementDTO parentInfo)
-        {
-            var genreDTO = parentInfo;
-
-            genreDTO.ParagraphNumber = genre.ParagraphNumber;
-            genreDTO.Genre = genre.Text;
-
-            this.elements.Add(genreDTO);
-
-            MapNextLevel(genre, genreDTO);
-        }
-
-        public void ConvertElement(Book book, FileElementDTO parentInfo)
-        {
-            var bookDTO = parentInfo;
-            
-            bookDTO.ParagraphNumber = book.ParagraphNumber;
-            bookDTO.Compilers = book.GetAuthors();
-            bookDTO.BookTitle = book.GetTitle();
-
-            this.elements.Add(bookDTO);
-
-            MapNextLevel(book, bookDTO);
-        }
-
-        public void ConvertElement(Article article, FileElementDTO parentInfo)
-        {
-            var articleDTO = parentInfo;
-
-            articleDTO.ParagraphNumber = article.ParagraphNumber;
-            articleDTO.Authors = article.GetAuthors();
-            articleDTO.ArticleTitle = article.GetTitle();
-
-            this.elements.Add(articleDTO);
-
-            MapNextLevel(article, articleDTO);
         }
     }
 }

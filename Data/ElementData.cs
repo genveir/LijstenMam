@@ -1,22 +1,18 @@
-﻿using Nest;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LijstenMam.ElasticSearch
+namespace LijstenMam.Data
 {
-    [ElasticsearchType(IdProperty = "ParagraphNumber")]
-    public class FileElementDTO
+    public class ElementData
     {
-        public FileElementDTO()
+        public ElementData()
         {
             this.Genres = new List<string>();
             this.Compilers = new List<string>();
             this.Authors = new List<string>();
         }
-
-        public long ParagraphNumber { get; set; }
 
         public IEnumerable<string> Genres { get; set; }
 
@@ -27,5 +23,17 @@ namespace LijstenMam.ElasticSearch
         public IEnumerable<string> Authors { get; set; }
 
         public string ArticleTitle { get; set; }
+
+        public ElementData Copy()
+        {
+            return new ElementData()
+            {
+                Genres = new List<string>(this.Genres),
+                Compilers = new List<string>(this.Compilers),
+                BookTitle = this.BookTitle,
+                Authors = new List<string>(this.Authors),
+                ArticleTitle = this.ArticleTitle
+            };
+        }
     }
 }

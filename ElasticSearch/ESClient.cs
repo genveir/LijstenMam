@@ -87,7 +87,7 @@ namespace LijstenMam.ElasticSearch
         private QueryContainer BuildTermMatchQuery(string token, SearchOptions options)
         {
             var fieldQueries = new List<QueryContainer>();
-            if (options.MatchGenre) fieldQueries.Add(CreateMatchQuery(token, Infer.Field<FileElementDTO>(f => f.Genre)));
+            if (options.MatchGenre) fieldQueries.Add(CreateMatchQuery(token, Infer.Field<FileElementDTO>(f => f.Genres)));
             if (options.MatchBookTitle) fieldQueries.Add(CreateMatchQuery(token, Infer.Field<FileElementDTO>(f => f.BookTitle)));
             if (options.MatchBookCompiler) fieldQueries.Add(CreateMatchQuery(token, Infer.Field<FileElementDTO>(f => f.Compilers)));
             if (options.MatchArticleTitle) fieldQueries.Add(CreateMatchQuery(token, Infer.Field<FileElementDTO>(f => f.ArticleTitle)));

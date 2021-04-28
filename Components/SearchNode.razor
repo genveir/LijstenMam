@@ -1,5 +1,19 @@
-﻿<div>
-    <p>@element.RawText</p>
+﻿<div class="card">
+    <p>@element.GetType().Name</p>
+
+    <div class="card-body">
+        <p><b>Genre:</b> @string.Join(", ", element.ElementData.Genres)</p>
+        @if (element.ElementData.BookTitle != null)
+        {
+            <p><b>Book:</b> @element.ElementData.BookTitle</p>
+            <p><b>Authors/Composers:</b> @string.Join(", ", element.ElementData.Compilers)</p>
+        }
+        @if (element.ElementData.ArticleTitle != null)
+        {
+            <p><b>Article:</b> @element.ElementData.ArticleTitle</p>
+            <p><b>Authors:</b> @string.Join(", ", element.ElementData.Authors)</p>
+        }
+    </div>
 </div>
 
 @code {

@@ -1,6 +1,7 @@
 ﻿@inherits LayoutComponentBase
 
 @inject IFileService fileService
+@inject ISearchService searchService;
 
 <div class="main">
     <div class="content px-4">
@@ -29,6 +30,8 @@
     async Task LoadFile(InputFileChangeEventArgs e)
     {
         await fileService.LoadFile(e.File.OpenReadStream(10000000), e.File.Name);
+
+        await searchService.Fill();
     }
 
     async Task Reset()

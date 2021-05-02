@@ -2,11 +2,11 @@
 
 @inject ISearchService SearchService;
 
-<h3>Search</h3>
+<h3>Zoeken</h3>
 
 <div>
     <input @bind="searchTerm" @onkeyup="CatchEnter" />
-    <button @onclick="PerformSearch">Search</button>
+    <button @onclick="PerformSearch">Zoeken</button>
 </div>
 <div>
     @foreach (var hit in hits)

@@ -10,6 +10,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="BuildWebCompiler" Version="1.12.405" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\Backend\Backend.csproj" />
 	</ItemGroup>
 </Project>

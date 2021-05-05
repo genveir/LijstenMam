@@ -13,11 +13,13 @@
 </div>
 
 <div class="d-flex justify-content-between align-items-center flex-column">
-    <div class="d-flex flex-column align-items-center my-2">
-        @foreach (var hit in hits)
-        {
-            <SearchNode element="hit" />
-        }
+    <div class="d-flex flex-column align-items-center">
+        <div class="card-deck">
+            @foreach (var hit in hits)
+            {
+                <SearchNode element="hit" />
+            }
+        </div>
     </div>
 </div>
 

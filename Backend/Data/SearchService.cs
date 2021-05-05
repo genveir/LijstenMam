@@ -67,6 +67,8 @@ namespace LijstenMam.Backend.Data
 
         private void SearchRecursive(FileElement element, string term, SearchOptions options, ref HashSet<long> result)
         {
+            if (term == null) return;
+
             var tokens = term
                 .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(t => t.Trim());

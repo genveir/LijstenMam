@@ -2,17 +2,22 @@
 
 @inject ISearchService SearchService;
 
-<h3>Zoeken</h3>
+<div class="d-flex justify-content-center mt-vh-10">
 
-<div>
-    <input @bind="searchTerm" @onkeyup="CatchEnter" />
-    <button @onclick="PerformSearch">Zoeken</button>
-</div>
-<div>
-    @foreach (var hit in hits)
-    {
-        <SearchNode element="hit" />
-    }
+    <div class="input-group mb-3 w-15">
+        <input @bind="searchTerm" @onkeyup="CatchEnter" type="text" class="form-control" placeholder="Type hier je zoekterm">
+        <div class="input-group-append">
+            <button @onclick="PerformSearch" class="btn btn-outline-secondary" type="button">Zoeken</button>
+        </div>
+    </div>
+
+    <div>
+        @foreach (var hit in hits)
+        {
+            <SearchNode element="hit" />
+        }
+    </div>
+
 </div>
 
 

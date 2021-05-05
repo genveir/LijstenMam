@@ -6311,6 +6311,9 @@ button.bg-dark:focus {
 .w-auto {
   width: auto !important; }
 
+.w-15 {
+  width: 15% !important; }
+
 .h-25 {
   height: 25% !important; }
 
@@ -6325,6 +6328,9 @@ button.bg-dark:focus {
 
 .h-auto {
   height: auto !important; }
+
+.h-15 {
+  height: 15% !important; }
 
 .mw-100 {
   max-width: 100% !important; }
@@ -7944,6 +7950,9 @@ a.text-dark:hover, a.text-dark:focus {
 
 .mt-vh-20 {
   margin-top: 20vh; }
+
+.mt-vh-10 {
+  margin-top: 10vh; }
 
 .file-input-zone {
   display: flex;

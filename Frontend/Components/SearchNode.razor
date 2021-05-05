@@ -22,19 +22,20 @@
 </div>
 
 @code {
-    [Parameter]
-    public FileElement element { get; set; }
+        [Parameter]
+        public FileElement element { get; set; }
 
-    protected TypeData Data { get; set; }
-
-    protected override void OnInitialized()
+    protected TypeData Data
     {
-        switch (element.GetType().Name)
+        get
         {
-            case "Genre": Data = new TypeData("Genre", "oi oi-spreadsheet", "bg-primary"); break;
-            case "Book": Data = new TypeData("Boek", "oi oi-book", "bg-secondary"); break;
-            case "Article": Data = new TypeData("Artikel", "oi oi-script", "bg-light", "text-dark"); break;
-            default: Data = new TypeData("Onbekend soort element, vertel Geerten even dat dit stuk is", "oi oi-circle-x", "text-danger"); break;
+            switch (element.GetType().Name)
+            {
+                case "Genre": return new TypeData("Genre", "oi oi-spreadsheet", "bg-primary");
+                case "Book": return new TypeData("Boek", "oi oi-book", "bg-secondary");
+                case "Article": return new TypeData("Artikel", "oi oi-script", "bg-light", "text-dark");
+                default: return new TypeData("Onbekend soort element, vertel Geerten even dat dit stuk is", "oi oi-circle-x", "text-danger");
+            }
         }
     }
 

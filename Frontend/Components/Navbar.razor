@@ -1,7 +1,20 @@
-﻿<nav class="navbar navbar-expand-lg">
-    <a class="nav-link" href="/">Bladeren</a>
-    <a class="nav-link" href="/search">Zoeken</a>
-    <a class="nav-link" @onclick="_Reset">Reset</a>
+﻿<nav class="navbar navbar-expand-lg navbar-dark bg-info mb-5 justify-content-between ml-lg--5">
+    <div></div>
+
+    <ul class="navbar-nav my-3">
+        <li class="nav-item mr-5">
+            <a class="nav-link h4" href="/">Bladeren</a>
+        </li>
+        <li class="nav-item ml-5">
+            <a class="nav-link h4" href="/search">Zoeken</a>
+        </li>
+    </ul>
+
+    <ul class="navbar-nav">
+        <div class="nav-item">
+            <a class="nav-link h4 mr-5" @onclick="_Reset">Reset</a>
+        </div>
+    </ul>
 </nav>
 
 @code {

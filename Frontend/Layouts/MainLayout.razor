@@ -8,6 +8,7 @@
         @if (file == null)
         {
             <UploadFile _LoadFile="LoadFile" />
+            <button @onclick="LoadExample">LoadExample</button>
         }
         else
         {
@@ -26,6 +27,13 @@
 
 @code {
     protected File file => fileService.File;
+
+    async Task LoadExample()
+    {
+        await fileService.LoadExample();
+
+        await this.InvokeAsync(StateHasChanged);
+    }
 
     async Task LoadFile(InputFileChangeEventArgs e)
     {

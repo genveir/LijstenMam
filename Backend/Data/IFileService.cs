@@ -10,6 +10,8 @@ namespace LijstenMam.Backend.Data
     {
         Task LoadFile(Stream fileStream, string name);
 
+        Task LoadExample();
+
         Task Reset();
 
         File File { get; }

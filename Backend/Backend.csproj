@@ -5,6 +5,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="ExampleInput\boeken die ik heb.docx" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="ExampleInput\boeken die ik heb.docx" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="NEST" Version="7.12.1" />
 		<PackageReference Include="NPOI" Version="2.5.3" />
 	</ItemGroup>

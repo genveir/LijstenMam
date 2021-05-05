@@ -60,29 +60,34 @@ namespace LijstenMam.Backend.Data
             var root = file.FileRoot;
 
             HashSet<long> result = new HashSet<long>();
-            await Task.Run(() => SearchRecursive(root, term, options, ref result));
+            await Task.Run(() => SearchRecursive(root, term, options, ref result, false));
 
             return result;
         }
 
-        private void SearchRecursive(FileElement element, string term, SearchOptions options, ref HashSet<long> result)
+        private void SearchRecursive(FileElement element, string term, SearchOptions options, ref HashSet<long> result, bool autoAdd)
         {
             if (term == null) return;
 
-            var tokens = term
-                .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(t => t.Trim());
+            bool shouldAdd = autoAdd;
 
-            bool allFound = true;
-            foreach (var token in tokens)
+            if (!shouldAdd)
             {
-                allFound = allFound && element.RawText.Contains(token, StringComparison.InvariantCultureIgnoreCase);
+                var tokens = term
+                    .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(t => t.Trim());
+
+                shouldAdd = true;
+                foreach (var token in tokens)
+                {
+                    shouldAdd = shouldAdd && element.RawText.Contains(token, StringComparison.InvariantCultureIgnoreCase);
+                }
             }
-            if (allFound) result.Add(element.ParagraphNumber);
+            if (shouldAdd) result.Add(element.ParagraphNumber);
 
-            foreach(var child in element.Children)
+            foreach (var child in element.Children)
             {
-                SearchRecursive(child, term, options, ref result);
+                SearchRecursive(child, term, options, ref result, shouldAdd);
             }
         }
 

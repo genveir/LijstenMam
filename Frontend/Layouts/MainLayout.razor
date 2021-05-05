@@ -8,7 +8,9 @@
         @if (file == null)
         {
             <UploadFile _LoadFile="LoadFile" />
+#if DEBUG
             <button @onclick="LoadExample">LoadExample</button>
+#endif
         }
         else
         {

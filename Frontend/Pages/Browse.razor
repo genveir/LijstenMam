@@ -3,7 +3,11 @@
 <h3>Bladeren</h3>
 
 <div>
-    <BrowseNode element="element" />
+    @foreach (var child in element.Children)
+    {
+        <BrowseNode element="child" />
+    }
+
 </div>
 
 @code {

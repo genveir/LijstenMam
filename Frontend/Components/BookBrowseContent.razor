@@ -1,0 +1,12 @@
+﻿<div class="d-block">
+    <h4>@element.ElementData.BookTitle</h4><br />
+    @foreach (var compiler in element.ElementData.Compilers)
+    {
+        <i>@compiler</i>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public FileElement element { get; set; }
+}

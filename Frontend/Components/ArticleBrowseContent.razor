@@ -1,0 +1,12 @@
+﻿<div class="d-block">
+    @element.ElementData.ArticleTitle<br />
+    @foreach (var author in element.ElementData.Authors)
+    {
+        <i>@author</i>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public FileElement element { get; set; }
+}

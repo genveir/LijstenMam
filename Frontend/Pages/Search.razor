@@ -10,15 +10,18 @@
             <button @onclick="PerformSearch" class="btn btn-outline-secondary" type="button">Zoeken</button>
         </div>
     </div>
+</div>
 
-    <div>
+<div class="d-flex justify-content-between align-items-center flex-column">
+    <div class="d-flex flex-column align-items-center my-2">
         @foreach (var hit in hits)
         {
             <SearchNode element="hit" />
         }
     </div>
-
 </div>
+
+
 
 
 @code {

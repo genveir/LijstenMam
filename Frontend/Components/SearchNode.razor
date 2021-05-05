@@ -1,18 +1,20 @@
-﻿<div class="card">
-    <p>@TypeName()</p>
+﻿<div class="d-block">
+    <div class="card">
+        <p>@TypeName()</p>
 
-    <div class="card-body">
-        <p><b>Genre:</b> @string.Join(", ", element.ElementData.Genres)</p>
-        @if (element.ElementData.BookTitle != null)
-        {
-            <p><b>Boek:</b> @element.ElementData.BookTitle</p>
-            <p><b>Auteurs/Samenstellers:</b> @string.Join(", ", element.ElementData.Compilers)</p>
-        }
-        @if (element.ElementData.ArticleTitle != null)
-        {
-            <p><b>Artikel:</b> @element.ElementData.ArticleTitle</p>
-            <p><b>Auteurs:</b> @string.Join(", ", element.ElementData.Authors)</p>
-        }
+        <div class="card-body">
+            <p><b>Genre:</b> @string.Join(", ", element.ElementData.Genres)</p>
+            @if (element.ElementData.BookTitle != null)
+            {
+                <p><b>Boek:</b> @element.ElementData.BookTitle</p>
+                <p><b>Auteurs/Samenstellers:</b> @string.Join(", ", element.ElementData.Compilers)</p>
+            }
+            @if (element.ElementData.ArticleTitle != null)
+            {
+                <p><b>Artikel:</b> @element.ElementData.ArticleTitle</p>
+                <p><b>Auteurs:</b> @string.Join(", ", element.ElementData.Authors)</p>
+            }
+        </div>
     </div>
 </div>
 

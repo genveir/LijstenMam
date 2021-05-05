@@ -1,12 +1,14 @@
-﻿<nav class="navbar navbar-expand-lg navbar-dark bg-info mb-5 justify-content-between ml-lg--5">
+﻿@inject NavigationManager navigationManager
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-info mb-5 justify-content-between ml-lg--5">
     <div></div>
 
     <ul class="navbar-nav my-3">
-        <li class="nav-item mr-5">
-            <a class="nav-link h4" href="/">Bladeren</a>
+        <li class="nav-item mr-5 @Active(HREF_BROWSE)">
+            <a class="nav-link h4" href="@HREF_BROWSE">Bladeren</a>
         </li>
-        <li class="nav-item ml-5">
-            <a class="nav-link h4" href="/search">Zoeken</a>
+        <li class="nav-item ml-5 @Active(HREF_SEARCH)">
+            <a class="nav-link h4" href="@HREF_SEARCH">Zoeken</a>
         </li>
     </ul>
 
@@ -18,6 +20,21 @@
 </nav>
 
 @code {
+    protected const string HREF_BROWSE = "";
+    protected const string HREF_SEARCH = "search";
+
     [Parameter]
     public EventCallback _Reset { get; set; }
+    protected string Active(string href) => isActive(href) ? "active" : "";
+
+    protected override void OnInitialized()
+    {
+        navigationManager.LocationChanged += (s, e) => StateHasChanged();
+    }
+
+    bool isActive(string href)
+    {
+        var relativePath = navigationManager.ToBaseRelativePath(navigationManager.Uri);
+        return relativePath == href;
+    }
 }

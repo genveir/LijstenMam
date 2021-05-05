@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace LijstenMam.Backend.Data
@@ -17,6 +18,15 @@ namespace LijstenMam.Backend.Data
             var document = await ConvertToDocX(bytes);
 
             File = await Parse(document, name);
+        }
+
+        public async Task LoadExample()
+        {
+            var embedded = this.GetType().Assembly.GetManifestResourceNames().Single();
+
+            var stream = this.GetType().Assembly.GetManifestResourceStream(embedded);
+
+            await LoadFile(stream, "Example from backend.docx");
         }
 
         public async Task Reset()

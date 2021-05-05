@@ -1,0 +1,10 @@
+﻿<nav class="navbar navbar-expand-lg">
+    <a class="nav-link" href="/">Bladeren</a>
+    <a class="nav-link" href="/search">Zoeken</a>
+    <a class="nav-link" @onclick="_Reset">Reset</a>
+</nav>
+
+@code {
+    [Parameter]
+    public EventCallback _Reset { get; set; }
+}

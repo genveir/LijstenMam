@@ -12,11 +12,7 @@
         }
         else
         {
-            <nav class="navbar navbar-expand-lg">
-                <a class="nav-link" href="/">Bladeren</a>
-                <a class="nav-link" href="/search">Zoeken</a>
-                <a class="nav-link" @onclick="Reset">Reset</a>
-            </nav>
+            <Navbar _Reset="Reset" />
 
             <CascadingValue Value="file.FileRoot">
                 @Body

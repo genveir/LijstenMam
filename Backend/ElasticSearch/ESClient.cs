@@ -45,6 +45,8 @@ namespace LijstenMam.Backend.ElasticSearch
 
         public async Task<IEnumerable<long>> Search(string term, SearchOptions options)
         {
+            if (term == null) return new List<long>();
+
             term = term.ToLower().Trim();
 
             var query = BuildQuery(term, options);

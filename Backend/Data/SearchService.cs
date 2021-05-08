@@ -20,6 +20,8 @@ namespace LijstenMam.Backend.Data
 
         public async Task<IEnumerable<FileElement>> Search(string term, SearchOptions options)
         {
+            if (term == null) return new List<FileElement>();
+
             UsingElasticSearch = await CheckOnline();
 
             Console.WriteLine("using elastic search: " + UsingElasticSearch);

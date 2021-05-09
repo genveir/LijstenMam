@@ -19,7 +19,7 @@ namespace LijstenMam.Backend.ElasticSearch
             var connectionPool = new StaticConnectionPool(uris);
 
             var settings = new ConnectionSettings(connectionPool)
-                .PingTimeout(TimeSpan.FromMilliseconds(100))
+                //.PingTimeout(TimeSpan.FromMilliseconds(100))
                 .DefaultIndex(FileElementIndex.INDEX_NAME);
 
             client = new ElasticClient(settings);

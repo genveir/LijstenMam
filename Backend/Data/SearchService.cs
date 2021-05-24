@@ -1,4 +1,5 @@
 ﻿using LijstenMam.Backend.ElasticSearch;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,21 +11,25 @@ namespace LijstenMam.Backend.Data
     {
         public bool UsingElasticSearch { get; set; }
 
+        private ILogger<SearchService> logger;
         private IFileService fileService;
         private File activeFile;
 
-        public SearchService(IFileService fileService)
+        public SearchService(IFileService fileService, ILogger<SearchService> logger)
         {
+            this.logger = logger;
             this.fileService = fileService;
         }
 
         public async Task<IEnumerable<FileElement>> Search(string term, SearchOptions options)
         {
+            logger.LogInformation("searching for {term}", term);
+
             if (term == null) return new List<FileElement>();
 
             UsingElasticSearch = await CheckOnline();
 
-            Console.WriteLine("using elastic search: " + UsingElasticSearch);
+            logger.LogInformation("using elastic search: " + UsingElasticSearch);
 
             var file = fileService.File;
 
@@ -32,7 +37,7 @@ namespace LijstenMam.Backend.Data
             if (UsingElasticSearch) paragraphIds = await SearchES(file, term, options);
             else paragraphIds = await SearchManual(file, term, options);
 
-            Console.WriteLine("found " + paragraphIds.Count() + " results");
+            logger.LogInformation("found " + paragraphIds.Count() + " results");
 
             var elements = file.GetElementsByParagraphId(paragraphIds);
 

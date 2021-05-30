@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NPOI.XWPF.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,6 +33,13 @@ namespace LijstenMam.Backend.Data
         internal abstract void AddTo(FileElement element);
 
         internal abstract void SetElementData();
+
+        internal abstract Task Write(XWPFDocument doc);
+        protected virtual async Task WriteChildren(XWPFDocument doc)
+        {
+            foreach (var child in Children) await child.Write(doc);
+        }
+        internal virtual string numberingId { get; set; }
 
         public FileElement Parent { get; set; }
 

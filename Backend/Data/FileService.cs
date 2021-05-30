@@ -96,5 +96,19 @@ namespace LijstenMam.Backend.Data
 
             return toAdd;
         }
+
+        public async Task WriteDocument(string name)
+        {
+            var docToWrite = new XWPFDocument();
+
+            await File.FileRoot.Write(docToWrite);
+
+            using (var fs = new FileStream(name, FileMode.Create))
+            {
+                docToWrite.Write(fs);
+
+                fs.Close();
+            }
+        }
     }
 }

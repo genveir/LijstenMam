@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NPOI.XWPF.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,6 +34,11 @@ namespace LijstenMam.Backend.Data
         {
             this._Children.Add(article);
             article.Parent = this;
+        }
+
+        internal override async Task Write(XWPFDocument doc)
+        {
+            await WriteChildren(doc);
         }
 
         internal override void SetElementData()

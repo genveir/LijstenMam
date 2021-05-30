@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NPOI.XWPF.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,6 +35,18 @@ namespace LijstenMam.Backend.Data
         {
             this._Children.Add(article);
             article.Parent = this;
+        }
+
+        internal override async Task Write(XWPFDocument doc)
+        {
+            var para = doc.CreateParagraph();
+            var run = para.CreateRun();
+            run.FontFamily ="Arial";
+            run.FontSize = 12;
+            run.IsBold = true;
+            run.SetText(this.RawText);
+
+            await WriteChildren(doc);
         }
 
         internal override void SetElementData()

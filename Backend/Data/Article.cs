@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NPOI.XWPF.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,6 +60,18 @@ namespace LijstenMam.Backend.Data
             if (this.Parent == null) throw new NotImplementedException("article has no parent");
 
             this.Parent.Add(article);
+        }
+
+        internal override async Task Write(XWPFDocument doc)
+        {
+            var para = doc.CreateParagraph();
+            var run = para.CreateRun();
+            run.FontFamily = "Arial";
+            run.FontSize = 12;
+            run.SetText(this.RawText);
+            para.SetNumID(Parent.numberingId);
+
+            await WriteChildren(doc);
         }
 
         internal override void SetElementData()

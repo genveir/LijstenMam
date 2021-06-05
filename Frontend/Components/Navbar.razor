@@ -4,11 +4,11 @@
     <div class="ml-5 text-info h4">Reset</div>
 
     <ul class="navbar-nav my-3">
-        <li class="nav-item mr-5 @Active(HREF_BROWSE)">
-            <a class="nav-link h4" href="@HREF_BROWSE">Bladeren</a>
-        </li>
         <li class="nav-item ml-5 @Active(HREF_SEARCH)">
             <a class="nav-link h4" href="@HREF_SEARCH">Zoeken</a>
+        </li>
+        <li class="nav-item mr-5 @Active(HREF_BROWSE)">
+            <a class="nav-link h4" href="@HREF_BROWSE">Bladeren</a>
         </li>
     </ul>
 
@@ -20,8 +20,8 @@
 </nav>
 
 @code {
-    protected const string HREF_BROWSE = "";
-    protected const string HREF_SEARCH = "search";
+    protected const string HREF_BROWSE = "browse";
+    protected const string HREF_SEARCH = "";
 
     [Parameter]
     public EventCallback _Reset { get; set; }

@@ -13,12 +13,14 @@ namespace LijstenMam.Backend.Data
 
         private ILogger<SearchService> logger;
         private IFileService fileService;
-        private File activeFile;
+        private ESClient client;
+        private static File activeFile;
 
-        public SearchService(IFileService fileService, ILogger<SearchService> logger)
+        public SearchService(IFileService fileService, ILogger<SearchService> logger, ESClient client)
         {
             this.logger = logger;
             this.fileService = fileService;
+            this.client = client;
         }
 
         public async Task<IEnumerable<FileElement>> Search(string term, SearchOptions options)
@@ -28,7 +30,6 @@ namespace LijstenMam.Backend.Data
             if (term == null) return new List<FileElement>();
 
             UsingElasticSearch = await CheckOnline();
-
             logger.LogInformation("using elastic search: " + UsingElasticSearch);
 
             var file = fileService.File;
@@ -46,20 +47,27 @@ namespace LijstenMam.Backend.Data
 
         public async Task Fill()
         {
+            logger.LogInformation("filling index");
+
             UsingElasticSearch = await CheckOnline();
+            logger.LogInformation("using elastic search: " + UsingElasticSearch);
 
             var file = fileService.File;
 
-            if (UsingElasticSearch && file != activeFile)
+            var sameFile = file == activeFile;
+            logger.LogInformation($"uploaded file is {(sameFile ? "" : " not ")} the same as the currently used file");
+
+            if (UsingElasticSearch && !sameFile)
             {
-                await new ESClient().Fill(file.FileRoot);
+                logger.LogInformation("filling index");
+                await client.Fill(file.FileRoot);
                 activeFile = file;
             }
         }
 
         private async Task<IEnumerable<long>> SearchES(File file, string term, SearchOptions options)
         {
-            return await new ESClient().Search(term, options);
+            return await client.Search(term, options);
         }
 
         private async Task<IEnumerable<long>> SearchManual(File file, string term, SearchOptions options)
@@ -100,7 +108,7 @@ namespace LijstenMam.Backend.Data
 
         private async Task<bool> CheckOnline()
         {
-            return await new ESClient().Check();
+            return await client.Check();
         }
     }
 }

@@ -1,4 +1,5 @@
 using LijstenMam.Backend.Data;
+using LijstenMam.Backend.ElasticSearch;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -29,8 +30,9 @@ namespace LijstenMam
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            services.AddSingleton<IFileService, FileService>();
-            services.AddSingleton<ISearchService, SearchService>();
+            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<ISearchService, SearchService>();
+            services.AddScoped<ESClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

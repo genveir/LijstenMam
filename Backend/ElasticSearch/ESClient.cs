@@ -1,5 +1,6 @@
 ﻿using Elasticsearch.Net;
 using LijstenMam.Backend.Data;
+using Microsoft.Extensions.Logging;
 using Nest;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,13 @@ namespace LijstenMam.Backend.ElasticSearch
 {
     public class ESClient
     {
+        private ILogger<ESClient> logger;
         protected ElasticClient client;
 
-        public ESClient()
+        public ESClient(ILogger<ESClient> logger)
         {
+            this.logger = logger;
+
             var uris = new List<Uri>() { new Uri("http://localhost:9200") };
 
             var connectionPool = new StaticConnectionPool(uris);
@@ -27,6 +31,8 @@ namespace LijstenMam.Backend.ElasticSearch
 
         public async Task Fill(Document document)
         {
+            logger.LogInformation($"filling index from document {document.RawText}");
+
             await FileElementIndex.Reset(client);
 
             var books = DocumentConverter.Convert(document);

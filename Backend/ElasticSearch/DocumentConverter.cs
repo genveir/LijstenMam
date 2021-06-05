@@ -29,13 +29,9 @@ namespace LijstenMam.Backend.ElasticSearch
 
         private void Convert(FileElement element, List<FileElementDTO> dtos)
         {
-            FileElementDTO dto;
-            var canConvert = TryConvertGenre(element, out dto) ||
-                TryConvertBook(element, out dto) ||
-                TryConvertArticle(element, out dto) ||
-                TryConvertElement(element, out dto);
+            var dto = ConvertElement(element);
 
-            if (canConvert) dtos.Add(dto);
+            dtos.Add(dto);
 
             foreach(var child in element.Children)
             {
@@ -43,60 +39,9 @@ namespace LijstenMam.Backend.ElasticSearch
             }
         }
 
-        private bool TryConvertGenre(FileElement element, out FileElementDTO dto)
+        private FileElementDTO ConvertElement(FileElement element)
         {
-            dto = null;
-
-            if (element is Genre)
-            {
-                dto = new FileElementDTO()
-                {
-                    ParagraphNumber = element.ParagraphNumber,
-                    Genres = element.ElementData.Genres
-                };
-
-                return true;
-            }
-            return false;
-        }
-
-        private bool TryConvertBook(FileElement element, out FileElementDTO dto)
-        {
-            dto = null;
-
-            if (element is Book)
-            {
-                dto = new FileElementDTO()
-                {
-                    ParagraphNumber = element.ParagraphNumber,
-                    BookTitle = element.ElementData.BookTitle,
-                    Compilers = element.ElementData.Compilers
-                };
-                return true;
-            }
-            return false;
-        }
-
-        private bool TryConvertArticle(FileElement element, out FileElementDTO dto)
-        {
-            dto = null;
-
-            if (element is Article)
-            {
-                dto = new FileElementDTO()
-                {
-                    ParagraphNumber = element.ParagraphNumber,
-                    ArticleTitle = element.ElementData.ArticleTitle,
-                    Authors = element.ElementData.Authors
-                };
-                return true;
-            }
-            return false;
-        }
-
-        private bool TryConvertElement(FileElement element, out FileElementDTO dto)
-        {
-            dto = new FileElementDTO()
+            var dto = new FileElementDTO()
             {
                 ParagraphNumber = element.ParagraphNumber,
                 Genres = element.ElementData.Genres,
@@ -105,7 +50,8 @@ namespace LijstenMam.Backend.ElasticSearch
                 ArticleTitle = element.ElementData.ArticleTitle,
                 Authors = element.ElementData.Authors
             };
-            return true;
+
+            return dto;
         }
     }
 }

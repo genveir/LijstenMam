@@ -30,6 +30,8 @@
     {
         await fileService.LoadExample();
 
+        await searchService.Fill();
+
         await this.InvokeAsync(StateHasChanged);
     }
 

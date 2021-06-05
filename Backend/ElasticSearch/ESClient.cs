@@ -1,5 +1,6 @@
 ﻿using Elasticsearch.Net;
 using LijstenMam.Backend.Data;
+using LijstenMam.Backend.Data.DocumentModel;
 using Microsoft.Extensions.Logging;
 using Nest;
 using System;

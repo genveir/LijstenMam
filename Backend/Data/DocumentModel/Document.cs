@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LijstenMam.Backend.Data
+namespace LijstenMam.Backend.Data.DocumentModel
 {
     public class Document : FileElement
     {

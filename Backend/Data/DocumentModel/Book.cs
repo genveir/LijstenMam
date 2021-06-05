@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LijstenMam.Backend.Data
+namespace LijstenMam.Backend.Data.DocumentModel
 {
-    public class Article : FileElement
+    public class Book : FileElement
     {
-        public Article(long paragraphNumber, string text) : base(paragraphNumber, text) 
+        public Book(long paragraphNumber, string text) : base(paragraphNumber, text) 
         {
             
         }
@@ -36,6 +36,7 @@ namespace LijstenMam.Backend.Data
             return withoutAuthors.Trim();
         }
 
+
         internal override void AddTo(FileElement element)
         {
             element.Add(this);
@@ -43,23 +44,22 @@ namespace LijstenMam.Backend.Data
 
         internal override void Add(Genre genre)
         {
-            if (this.Parent == null) throw new NotImplementedException("article has no parent");
+            if (this.Parent == null) throw new NotImplementedException("book has no parent");
 
             this.Parent.Add(genre);
         }
 
         internal override void Add(Book book)
         {
-            if (this.Parent == null) throw new NotImplementedException("article has no parent");
+            if (this.Parent == null) throw new NotImplementedException("book has no parent");
 
             this.Parent.Add(book);
         }
 
         internal override void Add(Article article)
         {
-            if (this.Parent == null) throw new NotImplementedException("article has no parent");
-
-            this.Parent.Add(article);
+            this._Children.Add(article);
+            article.Parent = this;
         }
 
         internal override async Task Write(XWPFDocument doc)
@@ -69,16 +69,21 @@ namespace LijstenMam.Backend.Data
             run.FontFamily = "Arial";
             run.FontSize = 12;
             run.SetText(this.RawText);
-            para.SetNumID(Parent.numberingId);
+
+            if (Children.Any())
+            {
+                var numbering = doc.CreateNumbering();
+                numberingId = numbering.AddNum("1");
+            }
 
             await WriteChildren(doc);
         }
 
         internal override void SetElementData()
         {
-            this.ElementData = this.Parent.ElementData.Copy();
-            this.ElementData.Authors = this.GetAuthors();
-            this.ElementData.ArticleTitle = this.GetTitle();
+            this.ElementData = Parent.ElementData.Copy();
+            this.ElementData.Compilers = this.GetAuthors();
+            this.ElementData.BookTitle = this.GetTitle();
         }
     }
 }

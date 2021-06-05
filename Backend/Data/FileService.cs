@@ -1,4 +1,5 @@
-﻿using NPOI.XWPF.UserModel;
+﻿using LijstenMam.Backend.Data.DocumentModel;
+using NPOI.XWPF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -60,7 +61,7 @@ namespace LijstenMam.Backend.Data
 
         private async Task<File> Parse(XWPFDocument docX, string name)
         {
-            var doc = new Document(name);
+            var doc = new DocumentModel.Document(name);
             FileElement currentElement = doc;
 
             await Task.Run(() =>

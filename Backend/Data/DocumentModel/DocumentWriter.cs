@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace LijstenMam.Backend.Data.DocumentModel
 {
-    public class DocumentWriter
+    public static class DocumentWriter
     {
-        public async Task WriteDocument(File file, string name)
+        public static async Task WriteDocument(Document document, string name)
         {
             var docToWrite = new XWPFDocument();
 
-            await file.FileRoot.Write(docToWrite);
+            await document.Write(docToWrite);
 
             using (var fs = new FileStream(name, FileMode.Create))
             {

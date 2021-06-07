@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace LijstenMam.Backend.Data.DocumentModel
 {
-    public class DocumentReader
+    public static class DocumentReader
     {
-        public async Task<File> ReadFile(byte[] fileContents, string name)
+        public static async Task<Document> FromFile(byte[] fileContents, string name)
         {
             var docx = await ConvertToDocX(fileContents);
 
-            var file = await Parse(docx, name);
+            var document = await Parse(docx, name);
 
-            return file;
+            return document;
         }
 
-        private async Task<File> Parse(XWPFDocument docX, string name)
+        private static async Task<Document> Parse(XWPFDocument docX, string name)
         {
             var doc = new DocumentModel.Document(name);
             FileElement currentElement = doc;
@@ -33,10 +33,10 @@ namespace LijstenMam.Backend.Data.DocumentModel
                 }
             });
 
-            return new File() { Name = name, FileRoot = doc };
+            return doc;
         }
 
-        private async Task<XWPFDocument> ConvertToDocX(byte[] contents)
+        private static async Task<XWPFDocument> ConvertToDocX(byte[] contents)
         {
             return await Task.Run(() =>
             {
@@ -50,7 +50,7 @@ namespace LijstenMam.Backend.Data.DocumentModel
             });
         }
 
-        private FileElement ParseParagraph(int paragraphNumber, XWPFParagraph paragraph, FileElement currentElement)
+        private static FileElement ParseParagraph(int paragraphNumber, XWPFParagraph paragraph, FileElement currentElement)
         {
             var text = paragraph.Text;
             if (string.IsNullOrWhiteSpace(text)) return currentElement;

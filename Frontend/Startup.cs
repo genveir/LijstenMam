@@ -34,8 +34,6 @@ namespace LijstenMam
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<ESClient>();
-            services.AddScoped<DocumentReader>();
-            services.AddScoped<DocumentWriter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

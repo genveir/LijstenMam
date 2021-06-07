@@ -13,18 +13,13 @@ namespace LijstenMam.Backend.Data
     {
         public File File { get; set; }
 
-        private DocumentReader reader;
-
-        public FileService(DocumentReader reader)
-        {
-            this.reader = reader;
-        }
-
         public async Task LoadFile(Stream fileStream, string name)
         {
             var bytes = await UploadFile(fileStream);
 
-            File = await reader.ReadFile(bytes, name);
+            var document = await DocumentReader.FromFile(bytes, name);
+
+            File = new() { FileRoot = document, Name = name };
         }
 
         public async Task LoadExample()

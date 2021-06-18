@@ -13,8 +13,12 @@ namespace LijstenMam.Backend.Data
 
         public bool MatchBookCompiler = true;
 
+        public bool MatchBookSearchData = true;
+
         public bool MatchArticleAuthor = true;
 
         public bool MatchArticleTitle = true;
+
+        public bool MatchArticleSearchDAta = true;
     }
 }

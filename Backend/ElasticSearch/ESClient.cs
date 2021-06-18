@@ -99,8 +99,10 @@ namespace LijstenMam.Backend.ElasticSearch
             if (options.MatchGenre) fieldQueries.Add(CreateMatchQuery(token, Infer.Field<FileElementDTO>(f => f.Genres)));
             if (options.MatchBookTitle) fieldQueries.Add(CreateMatchQuery(token, Infer.Field<FileElementDTO>(f => f.BookTitle)));
             if (options.MatchBookCompiler) fieldQueries.Add(CreateMatchQuery(token, Infer.Field<FileElementDTO>(f => f.Compilers)));
+            if (options.MatchBookSearchData) fieldQueries.Add(CreateMatchQuery(token, Infer.Field<FileElementDTO>(f => f.BookSearchData)));
             if (options.MatchArticleTitle) fieldQueries.Add(CreateMatchQuery(token, Infer.Field<FileElementDTO>(f => f.ArticleTitle)));
             if (options.MatchArticleAuthor) fieldQueries.Add(CreateMatchQuery(token, Infer.Field<FileElementDTO>(f => f.Authors)));
+            if (options.MatchArticleSearchDAta) fieldQueries.Add(CreateMatchQuery(token, Infer.Field<FileElementDTO>(f => f.ArticleSearchData)));
 
             return fieldQueries.Aggregate((a, b) => a || b);
         }

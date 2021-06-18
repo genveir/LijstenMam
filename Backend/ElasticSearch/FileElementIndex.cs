@@ -61,8 +61,10 @@ namespace LijstenMam.Backend.ElasticSearch
                     .Text(s => s.Name(n => n.Genres))
                     .Text(s => s.Name(n => n.Compilers))
                     .Text(s => s.Name(n => n.BookTitle))
+                    .Text(s => s.Name(n => n.BookSearchData))
                     .Text(s => s.Name(n => n.Authors))
                     .Text(s => s.Name(n => n.ArticleTitle))
+                    .Text(s => s.Name(n => n.ArticleSearchData))
                 ))
             );
 

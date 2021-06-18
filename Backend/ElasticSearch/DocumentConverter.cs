@@ -48,8 +48,10 @@ namespace LijstenMam.Backend.ElasticSearch
                 Genres = element.ElementData.Genres,
                 BookTitle = element.ElementData.BookTitle,
                 Compilers = element.ElementData.Compilers,
+                BookSearchData = element.ElementData.BookSearchTerms,
                 ArticleTitle = element.ElementData.ArticleTitle,
-                Authors = element.ElementData.Authors
+                Authors = element.ElementData.Authors,
+                ArticleSearchData = element.ElementData.ArticleSearchTerms
             };
 
             return dto;

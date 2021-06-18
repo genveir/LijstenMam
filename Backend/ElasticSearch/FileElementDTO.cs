@@ -14,6 +14,8 @@ namespace LijstenMam.Backend.ElasticSearch
             this.Genres = new List<string>();
             this.Compilers = new List<string>();
             this.Authors = new List<string>();
+            this.BookSearchData = new List<string>();
+            this.ArticleSearchData = new List<string>();
         }
 
         public long ParagraphNumber { get; set; }
@@ -24,8 +26,12 @@ namespace LijstenMam.Backend.ElasticSearch
 
         public string BookTitle { get; set; }
 
+        public IEnumerable<string> BookSearchData { get; set; }
+
         public IEnumerable<string> Authors { get; set; }
 
         public string ArticleTitle { get; set; }
+
+        public IEnumerable<string> ArticleSearchData { get; set; }
     }
 }

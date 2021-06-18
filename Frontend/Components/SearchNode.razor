@@ -11,10 +11,18 @@
                     <p><b>Boek:</b> @element.ElementData.BookTitle</p>
                     <p><b>Auteurs/Samenstellers:</b> @string.Join(", ", element.ElementData.Compilers)</p>
                 }
+                @if (element.ElementData.BookSearchTerms.Count() > 0)
+                {
+                    <p><i>@string.Join(", ", element.ElementData.BookSearchTerms)</i></p>
+                }
                 @if (element.ElementData.ArticleTitle != null)
                 {
                     <p><b>Artikel:</b> @element.ElementData.ArticleTitle</p>
                     <p><b>Auteurs:</b> @string.Join(", ", element.ElementData.Authors)</p>
+                }
+                @if (element.ElementData.ArticleSearchTerms.Count() > 0)
+                {
+                    <p><i>@string.Join(", ", element.ElementData.ArticleSearchTerms)</i></p>
                 }
             </div>
         </div>
@@ -22,8 +30,8 @@
 </div>
 
 @code {
-        [Parameter]
-        public FileElement element { get; set; }
+    [Parameter]
+    public FileElement element { get; set; }
 
     protected TypeData Data
     {

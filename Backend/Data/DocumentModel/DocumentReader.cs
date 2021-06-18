@@ -61,16 +61,39 @@ namespace LijstenMam.Backend.Data.DocumentModel
                 var run = ir as XWPFRun;
                 return run?.IsBold ?? false;
             });
+            var italicRuns = paragraph.IRuns.Where(ir =>
+            {
+                var run = ir as XWPFRun;
+                return run?.IsItalic ?? false;
+            });
+
+            var otherRuns = paragraph.IRuns.Except(italicRuns);
+
+            var baseText = FormatRuns(otherRuns);
+            var searchText = FormatRuns(italicRuns);
 
             FileElement toAdd;
-            if (isBold) toAdd = new Genre(paragraphNumber, text.Trim());
-            else if (numIndent != null) toAdd = new Article(paragraphNumber, text);
-            else toAdd = new Book(paragraphNumber, text);
+            if (isBold) toAdd = new Genre(paragraphNumber, baseText, searchText);
+            else if (numIndent != null) toAdd = new Article(paragraphNumber, baseText, searchText);
+            else toAdd = new Book(paragraphNumber, baseText, searchText);
 
             toAdd.AddTo(currentElement);
             toAdd.SetElementData();
 
             return toAdd;
+        }
+
+        private static string FormatRuns(IEnumerable<IRunElement> runs)
+        {
+            var runText = runs
+                .Select(r => r.ToString())
+                .Select(r => r.Trim());
+
+            var text = string.Join(" ", runs);
+
+            while (text.Contains("\t\t")) text = text.Replace("\t\t", "\t");
+
+            return text;
         }
     }
 }

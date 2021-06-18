@@ -8,7 +8,7 @@ namespace LijstenMam.Backend.Data.DocumentModel
 {
     public class Book : FileElement
     {
-        public Book(long paragraphNumber, string text) : base(paragraphNumber, text) 
+        public Book(long paragraphNumber, string text, string search) : base(paragraphNumber, text, search)
         {
             
         }
@@ -28,14 +28,13 @@ namespace LijstenMam.Backend.Data.DocumentModel
         {
             if (string.IsNullOrWhiteSpace(RawText)) return null;
 
-            var split = RawText.Split('\t', 2);
-            if (split.Length != 2) return null;
+            var split = RawText.Split('\t');
+            if (split.Length < 2) return null;
 
             var withoutAuthors = split[1];
 
             return withoutAuthors.Trim();
         }
-
 
         internal override void AddTo(FileElement element)
         {
@@ -84,6 +83,7 @@ namespace LijstenMam.Backend.Data.DocumentModel
             this.ElementData = Parent.ElementData.Copy();
             this.ElementData.Compilers = this.GetAuthors();
             this.ElementData.BookTitle = this.GetTitle();
+            this.ElementData.BookSearchTerms = this.GetSearchTerms();
         }
     }
 }

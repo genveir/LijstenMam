@@ -8,7 +8,7 @@ namespace LijstenMam.Backend.Data.DocumentModel
 {
     public class Article : FileElement
     {
-        public Article(long paragraphNumber, string text) : base(paragraphNumber, text) 
+        public Article(long paragraphNumber, string text, string search) : base(paragraphNumber, text, search) 
         {
             
         }
@@ -79,6 +79,7 @@ namespace LijstenMam.Backend.Data.DocumentModel
             this.ElementData = this.Parent.ElementData.Copy();
             this.ElementData.Authors = this.GetAuthors();
             this.ElementData.ArticleTitle = this.GetTitle();
+            this.ElementData.ArticleSearchTerms = this.GetSearchTerms();
         }
     }
 }

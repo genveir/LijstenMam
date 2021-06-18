@@ -8,7 +8,7 @@ namespace LijstenMam.Backend.Data.DocumentModel
 {
     public class Genre : FileElement
     {
-        public Genre(long paragraphNumber, string text) : base( paragraphNumber, text) 
+        public Genre(long paragraphNumber, string text, string search) : base(paragraphNumber, text, search)
         {
             
         }

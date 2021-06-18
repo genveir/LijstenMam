@@ -9,19 +9,32 @@ namespace LijstenMam.Backend.Data
 {
     public abstract class FileElement
     {
-        public FileElement(long paragraphNumber, string text)
+        public FileElement(long paragraphNumber, string text, string search)
         {
-            while (text.Contains("\t\t")) text = text.Replace("\t\t", "\t");
-
             this.ParagraphNumber = paragraphNumber;
             this.RawText = text;
+            this.RawSearch = search;
 
             this._Children = new List<FileElement>();
+        }
+
+        public IEnumerable<string> GetSearchTerms()
+        {
+            if (string.IsNullOrWhiteSpace(RawSearch)) return new List<string>();
+
+            var split = RawSearch.Split(new char[] { '–', '-' });
+
+            var searchTerms = split
+                .Select(t => t.Trim());
+
+            return searchTerms;
         }
 
         public long ParagraphNumber { get; set; }
 
         public string RawText { get; set; }
+
+        public string RawSearch { get; set; }
 
         public ElementData ElementData { get; set; }
 

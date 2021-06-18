@@ -8,7 +8,7 @@ namespace LijstenMam.Backend.Data.DocumentModel
 {
     public class Document : FileElement
     {
-        public Document(string name) : base(-1, name) 
+        public Document(string name) : base(-1, name, "") 
         {
             SetElementData();
         }

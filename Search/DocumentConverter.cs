@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LijstenMam.Backend.ElasticSearch
+namespace LijstenMam.Search
 {
     public class DocumentConverter
     {

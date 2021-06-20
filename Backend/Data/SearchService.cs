@@ -1,5 +1,4 @@
-﻿using LijstenMam.Backend.ElasticSearch;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +12,10 @@ namespace LijstenMam.Backend.Data
 
         private ILogger<SearchService> logger;
         private IFileService fileService;
-        private ESClient client;
+        private IESClient client;
         private static File activeFile;
 
-        public SearchService(IFileService fileService, ILogger<SearchService> logger, ESClient client)
+        public SearchService(IFileService fileService, ILogger<SearchService> logger, IESClient client)
         {
             this.logger = logger;
             this.fileService = fileService;

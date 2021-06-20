@@ -1,6 +1,6 @@
 using LijstenMam.Backend.Data;
 using LijstenMam.Backend.Data.DocumentModel;
-using LijstenMam.Backend.ElasticSearch;
+using LijstenMam.Search;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -33,7 +33,7 @@ namespace LijstenMam
 
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<ISearchService, SearchService>();
-            services.AddScoped<ESClient>();
+            services.AddScoped<IESClient, ESClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

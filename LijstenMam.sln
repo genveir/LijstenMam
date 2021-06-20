@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LijstenMam", "FrontEnd\Lijs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend", "Backend\Backend.csproj", "{F3106B36-D389-41F2-8048-3674FCDBB703}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Search", "Search\Search.csproj", "{68180F0D-985F-4DA3-945C-306B58A2EE7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F3106B36-D389-41F2-8048-3674FCDBB703}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3106B36-D389-41F2-8048-3674FCDBB703}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3106B36-D389-41F2-8048-3674FCDBB703}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68180F0D-985F-4DA3-945C-306B58A2EE7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68180F0D-985F-4DA3-945C-306B58A2EE7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68180F0D-985F-4DA3-945C-306B58A2EE7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68180F0D-985F-4DA3-945C-306B58A2EE7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

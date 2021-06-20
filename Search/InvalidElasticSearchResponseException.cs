@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace LijstenMam.Backend.ElasticSearch
+namespace LijstenMam.Search
 {
     [Serializable]
     internal class InvalidElasticSearchResponseException : Exception

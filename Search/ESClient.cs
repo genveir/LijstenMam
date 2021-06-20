@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LijstenMam.Backend.ElasticSearch
+namespace LijstenMam.Search
 {
-    public class ESClient
+    public class ESClient : IESClient
     {
         private ILogger<ESClient> logger;
         protected ElasticClient client;
